@@ -93,7 +93,10 @@ Triangle::Triangle() {
 
 	// This will identify our vertex buffer
 	// Generate 1 buffer, put the resulting identifier in vertexbuffer
+	GLuint vertexbuffer;
+	glGenVertexArraysOES(1, &vao);
 	glGenBuffers(1, &vertexbuffer);
+	glBindVertexArrayOES(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(triangleVertices), triangleVertices, GL_STATIC_DRAW);
 
@@ -119,7 +122,7 @@ Triangle::~Triangle() {
 
 void Triangle::render() {
 	glUseProgram(program);
-	glBindVertexArrayOES(vertexbuffer);
+	glBindVertexArrayOES(vao);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glUseProgram(0);
 }
